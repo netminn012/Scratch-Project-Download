@@ -1,12 +1,12 @@
 // ==UserScript==
-// @name       Scratch Project Download
-// @namespace  http://tampermonkey.net/
-// @version    0.2
+// @name      Scratch Project Download
+// @namespace http://tampermonkey.net/
+// @version   0.3
 // @description Add a download button to Scratch projects
-// @author     You
-// @match      https://scratch.mit.edu/projects/*
-// @icon       https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://scratch.mit.edu&size=180
-// @grant      none
+// @author    You
+// @match     https://scratch.mit.edu/projects/*
+// @icon      https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://scratch.mit.edu&size=180
+// @grant     none
 // ==/UserScript==
 
 // ページが完全にロードされた後にスクリプトを実行
@@ -16,20 +16,24 @@ window.addEventListener('load', function() {
 
  // ダウンロードボタンを作成
  var downloadButton = document.createElement('button');
- downloadButton.textContent = 'プロジェクトをダウンロード';
+ downloadButton.textContent = "プロジェクトを保存';
  downloadButton.onclick = function() {
-     // URLを作成
-     var url = 'https://forkphorus.github.io/sb-downloader/?id=' + projectId;
+    // URLを作成
+    var url = 'https://forkphorus.github.io/sb-downloader/?id=' + projectId;
 
-     // 新しいポップアップウィンドウを開く
-     var popupWindow = window.open(url, '_blank', 'height=600,width=800');
+    // 新しいポップアップウィンドウを開く
+    var popupWindow = window.open(url, '_blank', 'height=600,width=800');
 
-     // ポップアップウィンドウがロードされたときにダウンロードが完了したと判断し、ウィンドウを閉じる
-     popupWindow.onload = function() {
-         popupWindow.close();
-     };
+    // ポップアップウィンドウがロードされたときにダウンロードが完了したと判断し、ウィンドウを閉じる
+    popupWindow.onload = function() {
+        popupWindow.close();
+    };
  };
 
  // ダウンロードボタンをページの最初に追加
  document.body.insertBefore(downloadButton, document.body.firstChild);
+
+ // ナビゲーションバーの「Scratchについて」のリンクを「プロジェクトをダウンロード」のリンクに置き換え
+ var aboutLink = document.querySelector('#navigation .link.about a');
+ aboutLink.href = 'https://forkphorus.github.io/sb-downloader/?id=' + projectId;
 });
