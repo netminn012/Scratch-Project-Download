@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name      Scratch Project Download
 // @namespace http://tampermonkey.net/
-// @version   0.3
+// @version   0.4
 // @description Add a download button to Scratch projects
 // @author    You
 // @match     https://scratch.mit.edu/projects/*
@@ -14,26 +14,12 @@ window.addEventListener('load', function() {
  // プロジェクトIDを取得
  var projectId = window.location.pathname.split('/')[2];
 
- // ダウンロードボタンを作成
- var downloadButton = document.createElement('button');
- downloadButton.textContent = "プロジェクトを保存';
- downloadButton.onclick = function() {
-    // URLを作成
-    var url = 'https://forkphorus.github.io/sb-downloader/?id=' + projectId;
+ // ダウンロードリンクを取得
+ var downloadLink = document.querySelector('a:contains("Scratchについて")');
 
-    // 新しいポップアップウィンドウを開く
-    var popupWindow = window.open(url, '_blank', 'height=600,width=800');
+ // リンクのテキストを変更
+ downloadLink.textContent = 'プロジェクトをダウンロード';
 
-    // ポップアップウィンドウがロードされたときにダウンロードが完了したと判断し、ウィンドウを閉じる
-    popupWindow.onload = function() {
-        popupWindow.close();
-    };
- };
-
- // ダウンロードボタンをページの最初に追加
- document.body.insertBefore(downloadButton, document.body.firstChild);
-
- // ナビゲーションバーの「Scratchについて」のリンクを「プロジェクトをダウンロード」のリンクに置き換え
- var aboutLink = document.querySelector('#navigation .link.about a');
- aboutLink.href = 'https://forkphorus.github.io/sb-downloader/?id=' + projectId;
+ // リンクのURLを変更
+ downloadLink.href = 'https://forkphorus.github.io/sb-downloader/?id=' + projectId;
 });
