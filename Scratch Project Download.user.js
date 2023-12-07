@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       Scratch Project Download
 // @namespace  http://tampermonkey.net/
-// @version    0.1
+// @version    0.2
 // @description Add a download button to Scratch projects
 // @author     You
 // @match      https://scratch.mit.edu/projects/*
